@@ -22,9 +22,12 @@ void main(){
 	USART_SendData(USART1,'2');
 	uprintf("hello,world");
 	*/
+	
 	usart1_init();
 	uprintf(USART1,"hello,world!\n");
-//	Timer_Init();
+	Timer_Init();
+	
+	
 	while(1){
 		;
 	}

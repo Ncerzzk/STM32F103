@@ -136,14 +136,21 @@ void SysTick_Handler(void)
 {
 }
 
-void TIM7_IRQHandler(void)  
+void TIM6_IRQHandler(void)  
 {  
+    //LED_Flash(GPIO_LED2);  
+	
+    TIM6->SR=0x0000;//????  
+}  
+void TIM7_IRQHandler(void)  
+{  /*
     if(TIM_GetITStatus(TIM7, TIM_IT_Update)== SET)  
     {  
 				uprintf(USART1,"hello,world!\n");
         //LED_Flash(GPIO_LED3);  
         TIM_ClearITPendingBit(TIM7 , TIM_FLAG_Update);  
     }  
+	*/
 }  
 
 /******************************************************************************/

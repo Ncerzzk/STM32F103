@@ -68,7 +68,7 @@ void Timer_Init(){
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM7, ENABLE);  //RCC_APB1Periph_TIM7  
   
     TIM_TimeBaseStructInit(&TIM7_TimeBaseStructure);  
-    TIM7_TimeBaseStructure.TIM_Prescaler = 36000 - 1;  //2KHz  
+    TIM7_TimeBaseStructure.TIM_Prescaler = 500 - 1;  //2KHz  
     TIM7_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  
     TIM7_TimeBaseStructure.TIM_Period = 400 - 1;      // 5Hz ????  
     TIM7_TimeBaseStructure.TIM_ClockDivision = 0;  
