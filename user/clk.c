@@ -1,36 +1,59 @@
-
+#include "stm32f10x.h"
 
 void system_clk_set(void){ 
-    ErrorStatus HSEStartUpStatus;
-    RCC_DeInit();
+	ErrorStatus HSEStartUpStatus;
+RCC_DeInit();
  
-    RCC_HSEConfig(RCC_HSE_ON );    //打开外部时钟
+  /*????????(HSE)*/
+  RCC_HSEConfig(RCC_HSE_ON);   //RCC_HSE_ON棗HSE????(ON)
  
-    HSEStartUpStatus = RCC_WaitForHSEStartUp();   // 等待外部时钟至稳定
+  /*??HSE??*/
+  HSEStartUpStatus = RCC_WaitForHSEStartUp();
  
-  if(HSEStartUpStatus == SUCCESS)     
+  if(HSEStartUpStatus == SUCCESS)        //SUCCESS:HSE???????
   {
-    FLASH_SetLatency(FLASH_Latency_5);   
-    FLASH_PrefetchBufferCmd(ENABLE);       //flash时钟设置
-    RCC_PLLCmd(DISABLE);  //禁止锁相环
-    RCC_HCLKConfig(RCC_SYSCLK_Div1);   //HCLK分频
-    RCC_PCLK2Config(RCC_HCLK_Div1);   //PCLK2分频
-    RCC_PCLK1Config(RCC_HCLK_Div4);    //PCLK1分频
-    RCC_PLLConfig(RCC_PLLSource_HSE, 8, 336, 2, 7);    //sysc  lk = 168MHZ  
-    RCC_PLLCmd(ENABLE); //开启锁相环
+    /*??AHB??(HCLK)*/ 
+    RCC_HCLKConfig(RCC_SYSCLK_Div1);  //RCC_SYSCLK_Div1棗AHB??= ????
  
-    while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET){      //等待锁相环使能
-    
-    }
+    /* ????AHB??(PCLK2)*/ 
+    RCC_PCLK2Config(RCC_HCLK_Div1);   //RCC_HCLK_Div1棗APB2??= HCLK
  
-    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);  //设置PLL时钟为系统时钟
+    /*????AHB??(PCLK1)*/    
+RCC_PCLK1Config(RCC_HCLK_Div2);   //RCC_HCLK_Div2棗APB1??= HCLK / 2
  
-    while(RCC_GetSYSCLKSource() != 0x08)       //等待
+    /*??FLASH??????????*/
+    FLASH_SetLatency(FLASH_Latency_2);    //FLASH_Latency_2  2????
+   
+ /*??FLASH????????*/  
+    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);       // ???????
+ 
+    /*??PLL????????*/ 
+    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);     
+// PLL?????= HSE????;RCC_PLLMul_9棗PLL????x 9
+   
+  /*??PLL */
+    RCC_PLLCmd(ENABLE); 
+ 
+    /*?????RCC???(PLL?????)????*/   
+    while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET)      
+       {
+       }
+ 
+    /*??????(SYSCLK)*/ 
+    RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); 
+//RCC_SYSCLKSource_PLLCLK棗??PLL??????
+ 
+    /* PLL????????????*/
+    while(RCC_GetSYSCLKSource() != 0x08)        //0x08:PLL??????
        { 
        }
      }
-    #if(__FPU_PRESENT == 1)&&(__FPU_USED == 1)
-			SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  //开启FPU
-		#endif
-
+ 
+ /*??????APB2????*/    
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | 
+RCC_APB2Periph_GPIOC , ENABLE); 
+//RCC_APB2Periph_GPIOA    GPIOA??
+//RCC_APB2Periph_GPIOB    GPIOB??
+//RCC_APB2Periph_GPIOC    GPIOC??
+//RCC_APB2Periph_GPIOD    GPIOD??
 }

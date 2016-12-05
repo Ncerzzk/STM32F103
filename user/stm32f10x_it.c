@@ -136,6 +136,16 @@ void SysTick_Handler(void)
 {
 }
 
+void TIM7_IRQHandler(void)  
+{  
+    if(TIM_GetITStatus(TIM7, TIM_IT_Update)== SET)  
+    {  
+				uprintf(USART1,"hello,world!\n");
+        //LED_Flash(GPIO_LED3);  
+        TIM_ClearITPendingBit(TIM7 , TIM_FLAG_Update);  
+    }  
+}  
+
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */

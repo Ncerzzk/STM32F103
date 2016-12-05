@@ -29,7 +29,6 @@ void Usart_Init(USART_TypeDef * USARTx,int BaudRate){
 	if(USARTx==USART1){
 			RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 			RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-			RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 		
 			//设置TX,推挽输出
 			GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
@@ -55,9 +54,37 @@ void Usart_Init(USART_TypeDef * USARTx,int BaudRate){
 	USART_Cmd(USARTx,ENABLE);
 	USART_ClearFlag(USARTx, USART_FLAG_TC);
 	
-	//USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE); 
-	//USART_ITConfig(USARTx, USART_IT_TXE, ENABLE);  发送中断  发送一般不需要中断
+	USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE); 
+	USART_ITConfig(USARTx, USART_IT_TXE, ENABLE);  //发送中断  发送一般不需要中断
 	
+}
+
+void usart1_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	  USART_InitStructure.USART_BaudRate = 115200;                 /*??????115200*/
+    USART_InitStructure.USART_WordLength = USART_WordLength_8b;  /*??????8?*/
+    USART_InitStructure.USART_StopBits = USART_StopBits_1;       /*??????1?*/
+    USART_InitStructure.USART_Parity = USART_Parity_No;          /*?????*/    
+    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; /*??????*/
+    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;      /*?????*/
+    /*????COM1??????GPIO??,????????????*/
+	
+	USART_Init(USART1, &USART_InitStructure);
+	USART_Cmd(USART1, ENABLE);
 }
 
 void uprintf(USART_TypeDef* USARTx, char *fmt, ...)
