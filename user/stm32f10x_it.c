@@ -140,18 +140,22 @@ void TIM6_IRQHandler(void)
 {  
     //LED_Flash(GPIO_LED2);  
 	
-    TIM6->SR=0x0000;//????  
+    //TIM6->SR=0x0000;//????  
 }  
 void TIM7_IRQHandler(void)  
-{  /*
+{
     if(TIM_GetITStatus(TIM7, TIM_IT_Update)== SET)  
     {  
-				uprintf(USART1,"hello,world!\n");
+			uprintf(USART1,"hey:%d\n",TIM5->CNT);
+			TIM5->CNT=0;
         //LED_Flash(GPIO_LED3);  
         TIM_ClearITPendingBit(TIM7 , TIM_FLAG_Update);  
     }  
-	*/
+	
 }  
+
+void TIM5_IRQHandler(void){
+}
 
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */

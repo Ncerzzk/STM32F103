@@ -524,11 +524,6 @@
               <FilePath>.\user\stm32f10x_it.c</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f10x_md.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\startup\startup_stm32f10x_md.s</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\usart.c</FilePath>
@@ -537,6 +532,16 @@
               <FileName>tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>clk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\clk.c</FilePath>
+            </File>
+            <File>
+              <FileName>startup_stm32f10x_hd.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\startup\startup_stm32f10x_hd.s</FilePath>
             </File>
           </Files>
         </Group>

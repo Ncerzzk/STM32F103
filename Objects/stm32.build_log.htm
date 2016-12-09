@@ -22,16 +22,19 @@ Dialog DLL:      TCM.DLL V1.14.8.0
  
 <h2>Project:</h2>
 C:\Users\Administrator\Desktop\STM32F103\stm32.uvprojx
-Project File Date:  12/04/2016
+Project File Date:  12/06/2016
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 1 (build 61)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-assembling startup_stm32f10x_hd.s...
+compiling stm32f10x_it.c...
+user\stm32f10x_it.c(149): warning:  #223-D: function "uprintf" declared implicitly
+  			uprintf(USART1,"hey:%d\n",TIM5->CNT);
+user\stm32f10x_it.c: 1 warning, 0 errors
 linking...
-Program Size: Code=1204 RO-data=320 RW-data=0 ZI-data=1632  
+Program Size: Code=10412 RO-data=852 RW-data=24 ZI-data=1632  
 FromELF: creating hex file...
-".\Objects\stm32.axf" - 0 Error(s), 0 Warning(s).
+".\Objects\stm32.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   C:\Users\Administrator\Desktop\STM32F103\RTE

@@ -47,7 +47,7 @@ void Encoder_Init(){
 	 TIM_ITConfig(TIM5, TIM_IT_Update,ENABLE);
 	 
 		//Resetcounter
-	 TIM2->CNT = 0;
+	 TIM5->CNT = 0;
 	 
 	// ENC_Clear_Speed_Buffer();
 	 
@@ -68,9 +68,9 @@ void Timer_Init(){
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM7, ENABLE);  //RCC_APB1Periph_TIM7  
   
     TIM_TimeBaseStructInit(&TIM7_TimeBaseStructure);  
-    TIM7_TimeBaseStructure.TIM_Prescaler = 500 - 1;  //2KHz  
+    TIM7_TimeBaseStructure.TIM_Prescaler = 36000 - 1;  //2KHz  
     TIM7_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  
-    TIM7_TimeBaseStructure.TIM_Period = 400 - 1;      // 5Hz ????  
+    TIM7_TimeBaseStructure.TIM_Period = 4000 - 1;      // 5Hz ????  
     TIM7_TimeBaseStructure.TIM_ClockDivision = 0;  
     TIM_TimeBaseInit(TIM7, &TIM7_TimeBaseStructure);  
       

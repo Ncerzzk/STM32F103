@@ -24,6 +24,7 @@ void main(){
 	*/
 	
 	usart1_init();
+	Encoder_Init();
 	uprintf(USART1,"hello,world!\n");
 	Timer_Init();
 	
